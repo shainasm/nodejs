@@ -1,10 +1,13 @@
-const { add, subtract, divide, multiply, message} =
-require('./utlis')
+const button = document.querySelector('button')
+const input = document.querySelector('input')
+const div = document.querySelector('div')
 
-add()
-subtract()
-divide()
-multiply()
-console.log(message)
+const arr = [1,2,3,4,5]
 
-// put replaces and patch updates
+
+
+localStorage.setItem('val',JSON.stringify(arr))
+
+console.log(JSON.parse(localStorage.getItem('val')))
+
+
