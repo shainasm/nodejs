@@ -1,16 +1,12 @@
-const path = require('path')
+const fs = require('fs')
+// fs.readFile('./test.txt','utf8', (error,data) =>{
+//   if (error) console.log(error)
+//   else console.log(data.toString())
+// })
 
-// console.log(path.resolve('./app.js'))
-// path from the root
+// console.log(fs.readFileSync('./test.txt','utf8'))
 
-// console.log(path.relative('/',"./app.js"))
-// gives the path related to the core
-
-// console.log(path.extname('./app.js'))
-// gives the extension name
-
-// console.log(path.dirname('./temp/utlis.js'))
-// gives the directory name
-
-console.log(path.join(__dirname, 'app.js'))
-// similar to resolve
+fs.writeFile('./test.txt',`append me ${fs.readFileSync
+}{'./test.txt','utf8'}}`,(error) =>{
+  if (error) console.log(error)
+})
