@@ -1,13 +1,16 @@
-const button = document.querySelector('button')
-const input = document.querySelector('input')
-const div = document.querySelector('div')
+const path = require('path')
 
-const arr = [1,2,3,4,5]
+// console.log(path.resolve('./app.js'))
+// path from the root
 
+// console.log(path.relative('/',"./app.js"))
+// gives the path related to the core
 
+// console.log(path.extname('./app.js'))
+// gives the extension name
 
-localStorage.setItem('val',JSON.stringify(arr))
+// console.log(path.dirname('./temp/utlis.js'))
+// gives the directory name
 
-console.log(JSON.parse(localStorage.getItem('val')))
-
-
+console.log(path.join(__dirname, 'app.js'))
+// similar to resolve
