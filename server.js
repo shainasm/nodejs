@@ -4,34 +4,52 @@ const PORT = 3000
 
 app.use(express.json())
 
-let products = [{ name: 'iphone 13 case', price: '999' }, { name: 'iphone 12 case', price: '1199'}, { name: 'iphone 13 pro case', price: '14999'}]
+const token = "TOP_SECRET"
+let products = [{ name: 'iPhone12 Case', price: '999' }, { name: 'iPhone13 Case', price: '1199' }, { name: 'iPhone13 Pro Case', price: '1499' }]
 
-const validator = (req,res,next)=>{
-  const {name,price} = req.body
 
-  if (!name && !price) res.json({ error: "validation failed"})
-  else next()
+// Middlewares
+const validator = (req, res, next) => {
+    const { name, price } = req.body
+
+    if (!name || !price) res.json({ error: "Validation failed" })
+    else next()
 }
 
-// -------------PUBLIC ROUTES-----------------
-// GET ROUTE
-// SEND ALL PRODUCTS
-app.get('/products',(req,res)=>{
-  res.json({ products })
+const isAuthorised = (req, res, next) => {
+    if (req.headers.authorisation === token) next()
+    else res.json({ error: "UNAUTHORISED" })
+}
+
+// -----------PUBLIC routes---------------
+
+app.get('/products', (req, res) => {
+    res.json({ products })
 })
 
-// --------------PRIVATE ROUTES-----------------
-app.post('/products/add',validator,(req,res)=>{
- const { name,price } = req.body
- 
-  products.push({
-    name,
-    price,
-  })
+// -----------PRIVATE routes---------------
 
-  res.send({ products })
+app.post('/products/add', isAuthorised, validator, (req, res) => {
+    const { name, price } = req.body
+
+    products.push({
+        name,
+        price,
+    })
+    res.send({ products })
 })
+
+// -----------AUTH ROUTES
+app.post('/auth', (req, res) => {
+    const { email, password } = req.body
+    if (email === 'admin@mail.com' && password === 'password') {
+        res.send({ token })
+    } else {
+        res.send({ message: "UNAUTHORISED" })
+    }
+})
+
 
 app.listen(PORT, () => {
-    console.log(`Server running at port ${PORT}`)
+    console.log(`Server started at port ${PORT}`)
 })
