@@ -1,3 +1,5 @@
+// schema means a blueprint of your website
+
 //Product
 /*
 id: id
